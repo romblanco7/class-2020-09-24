@@ -48,7 +48,30 @@ sep_new <-
 
 **Prompt:** Which classes had the biggest increases and decreases in undergraduate enrollments between September 1 and September 22? Obviously, you will need to join the two datasets which I have created for you above.
 
+
+```{r}
+sep_join <- 
+  inner_join(sep_old, sep_new, by = "title", suffix = c("_old", "_new")) %>%
+  mutate(change = u_grad_old - u_grad_new)
+```
+
+
 a) Make a table using **gt** which shows the five courses with the biggest increase. Use the [How to make a table](https://davidkane9.github.io/PPBDS/tools.html#how-to-make-a-table) section of *The Primer*.
+
+```{r}
+sep_join <- 
+  inner_join(sep_old, sep_new, by = "title", suffix = c("_old", "_new")) %>%
+  mutate(change = u_grad_old - u_grad_new)
+
+class_today <- sep_join %>%
+  select(title, change) %>%
+  arrange(desc(change))
+class_today
+  
+
+ 
+```
+
 
 b) Make a table using **gt** which shows the five courses with the biggest decrease.
 
